@@ -1,0 +1,25 @@
+{
+  "name": "ledgerly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start" : "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dhaksh-1106/Ledgerly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dhaksh-1106/Ledgerly/issues"
+  },
+  "homepage": "https://github.com/Dhaksh-1106/Ledgerly#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
