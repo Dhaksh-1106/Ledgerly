@@ -1,4 +1,6 @@
-token = localStorage.getItem("Token")
+chart_generator = require("./chart_engine");
+
+token = localStorage.getItem("Token");
 if(token == null)
     window.location.assign("auth.html");
 
@@ -57,6 +59,8 @@ async function load_dashboard(){
     catch(err){
         console.error(err.message);
     }
+
+    chart_generator.generate_chart(response_json);
 }
 
 // async function get_summary(){
