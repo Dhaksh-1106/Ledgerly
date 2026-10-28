@@ -1,4 +1,5 @@
 //<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+//change dashboard.html script tag to type="module"
 token = localStorage.getItem("Token")
 if(token == null)
     window.location.assign("auth.html");
@@ -30,10 +31,10 @@ function generate_chart(data){
     new Chart(canvas,{
         type : 'bar',
         data : {
-            labels : Object.keys(data),
+            labels : Object.keys(data.categoricalBreakdown),
             datasets : [{
                 label : "Amount",
-                data : Object.values(data)
+                data : Object.values(data.categoricalBreakdown)
         }]}
         })
 }
