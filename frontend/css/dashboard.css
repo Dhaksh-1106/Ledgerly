@@ -1,0 +1,53 @@
+@import url("variables.css");
+
+.app-header { background: var(--surface); border-bottom: 1px solid var(--border); }
+.app-header-inner { display: flex; justify-content: space-between; align-items: center; min-height: 4.5rem; gap: var(--spacing-4); }
+.app-nav { display: flex; align-items: center; gap: var(--spacing-5); }
+.app-nav a { color: var(--text-muted); font-size: .875rem; font-weight: 650; }
+.app-nav a:hover, .app-nav a.active { color: var(--primary); }
+.user-chip { display: none; align-items: center; gap: var(--spacing-2); color: var(--text-muted); font-size: .875rem; }
+.avatar { display: grid; place-items: center; width: 2rem; height: 2rem; color: white; background: var(--primary); border-radius: 50%; font-weight: 700; }
+.dashboard-main { padding: var(--spacing-8) 0 var(--spacing-16); }
+.page-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--spacing-4); margin-bottom: var(--spacing-6); }
+.page-heading h1 { margin: 0; font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -.04em; }
+.page-heading p { margin: .25rem 0 0; color: var(--text-muted); }
+.eyebrow { margin: 0 0 var(--spacing-2); color: var(--primary); font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.summary-grid { display: grid; gap: var(--spacing-4); margin-bottom: var(--spacing-6); }
+.metric-card { padding: var(--spacing-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.metric-label { margin: 0 0 var(--spacing-2); color: var(--text-muted); font-size: .875rem; }
+.metric-value { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); letter-spacing: -.04em; }
+.metric-note { margin: var(--spacing-2) 0 0; color: var(--success); font-size: .8125rem; font-weight: 650; }
+.workspace-grid { display: grid; gap: var(--spacing-6); margin-bottom: var(--spacing-6); }
+.panel { padding: var(--spacing-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.panel-heading { display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-5); }
+.panel-heading h2 { margin: 0; font-size: 1.125rem; }
+.expense-form { display: grid; gap: var(--spacing-3); }
+.expense-form .form-group { margin: 0; }
+.form-control:invalid:not(:placeholder-shown) { border-color: var(--danger); }
+.textarea { min-height: 6rem; resize: vertical; }
+.chart-wrap { position: relative; min-height: 18rem; }
+#chart-target { min-height: 18rem; }
+#analytics-chart { display: block; width: 100%; height: 18rem; }
+.empty-state { display: grid; place-items: center; min-height: 12rem; padding: var(--spacing-6); color: var(--text-muted); text-align: center; background: var(--surface-muted); border-radius: var(--radius-md); }
+.table-wrap { overflow-x: auto; }
+.expense-table { width: 100%; min-width: 42rem; border-collapse: collapse; }
+.expense-table th, .expense-table td { padding: 1rem .75rem; border-bottom: 1px solid var(--border); text-align: left; }
+.expense-table th { color: var(--text-muted); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; }
+.expense-table td { font-size: .875rem; }
+.expense-table tbody tr:hover { background: var(--surface-muted); }
+.category-tag { display: inline-block; padding: .25rem .5rem; color: var(--primary-dark); background: var(--primary-soft); border-radius: 99px; font-size: .75rem; font-weight: 650; }
+.delete-action { padding: .35rem .5rem; color: var(--danger); background: transparent; border: 0; border-radius: var(--radius-sm); font-size: .8125rem; font-weight: 700; }
+.delete-action:hover { background: var(--danger-soft); }
+.app-footer { padding: var(--spacing-6) 0; color: var(--text-muted); border-top: 1px solid var(--border); font-size: .8125rem; }
+@media (min-width: 600px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  .expense-form { grid-template-columns: 1fr 1fr; }
+  .expense-form .wide { grid-column: 1 / -1; }
+}
+@media (min-width: 768px) {
+  .user-chip { display: flex; }
+  .panel { padding: var(--spacing-6); }
+}
+@media (min-width: 1000px) {
+  .workspace-grid { grid-template-columns: minmax(20rem, .9fr) minmax(24rem, 1.1fr); align-items: start; }
+}
