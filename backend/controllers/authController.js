@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, budget } = req.body;
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
 
     if (existingUser) {
@@ -12,7 +12,7 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ username, email, password: hashedPassword });
+    await User.create({ username, email, password: hashedPassword, monthlyBudget : budget });
     return res.status(201).json({ success: true, message: 'User account successfully provisioned.' });
   } catch (error) {
     return res.status(400).json({ success: false, message: error.message });

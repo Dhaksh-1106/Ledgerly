@@ -45,7 +45,7 @@ const getSummary = async (req, res) => {
       { $group: { _id: '$category', total: { $sum: '$amount' } } },
     ]);
 
-    const categories = ['Food', 'Rent', 'Utilities', 'Entertainment', 'Transport', 'Other'];
+    const categories = ['Food', 'Rent', 'Utilities', 'Entertainment', 'Transport', 'Shopping', 'Health', 'Other'];
     const categoricalBreakdown = Object.fromEntries(categories.map((category) => [category, 0]));
     for (const item of totals) categoricalBreakdown[item._id] = item.total;
 

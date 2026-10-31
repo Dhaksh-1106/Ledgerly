@@ -1,6 +1,5 @@
-//<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 //change dashboard.html script tag to type="module"
-token = localStorage.getItem("Token")
+const token = sessionStorage.getItem("Token");
 if(token == null)
     window.location.assign("auth.html");
 
@@ -24,18 +23,20 @@ if(token == null)
 //     }
 // }
 
-const canvas = document.getElementById("chart-target");
+export function generate_chart(data){
+    const canvas = document.getElementById("analytics-chart");
+    const existing_chart = Chart.getChart(canvas);
+    if(existing_chart)
+        existing_chart.destroy();
 
-function generate_chart(data){
-    new Chart(canvas,{
-        type : 'bar',
-        data : {
-            labels : Object.keys(data.categoricalBreakdown),
-            datasets : [{
-                label : "Amount",
-                data : Object.values(data.categoricalBreakdown)
-        }]}
-        });
+        new Chart(canvas,{
+            type : 'bar',
+            data : {
+                labels : Object.keys(data.categoricalBreakdown),
+                datasets : [{
+                    label : "Amount",
+                    data : Object.values(data.categoricalBreakdown)
+            }]}
+            });
 }
 
-module.exports = generate_chart;

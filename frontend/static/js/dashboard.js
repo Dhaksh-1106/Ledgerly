@@ -1,13 +1,23 @@
-chart_generator = require("./chart_engine");
+import {generate_chart} from "./chart_engine.js"
 
-token = localStorage.getItem("Token");
+const token = sessionStorage.getItem("Token");
 if(token == null)
     window.location.assign("auth.html");
 
+const date = new Date();
+const options = {
+    weekday : "long",
+    month : "long",
+    day : "numeric"
+}
+
 async function load_dashboard(){
-    const spent = document.getElementById("total-spent");
-    const budget = document.getElementById("monthly-budget");
-    const balance = document.getElementById("remaining-allowance");
+
+    document.getElementById("expense-date").value = date.toISOString().split("T")[0];
+    document.getElementById("today").innerText = date.toLocaleDateString("en-Us",options);
+    const spent = document.querySelector("#total-spent span");
+    const budget = document.querySelector("#monthly-budget span");
+    const balance = document.querySelector("#remaining-allowance span");
     const template = document.getElementById("expense-row-template");
     const table = document.querySelector(".expense-table tbody");  
 
@@ -25,11 +35,15 @@ async function load_dashboard(){
             spent.innerText = response_json["totalSpent"];
             budget.innerText = response_json["monthlyBudget"];
             balance.innerText = response_json["remainingAllowance"];
+
+            generate_chart(response_json);
         }
     }
     catch(err){
         console.error(err.message);
     }
+
+
 
 
     try{
@@ -42,17 +56,16 @@ async function load_dashboard(){
         if(!response.ok)
             console.error(`An error occured : status code - ${response.status}`);
         else{
-            table.querySelector("tbody").innerHTML = "";
+            table.innerHTML = "";
             const response_json = await response.json();
             for(const data of response_json){
-                entry = template.content.cloneNode(true);
+                const entry = template.content.cloneNode(true);
                 entry.querySelector('td[data-field = "title"]').textContent = data["title"];
                 entry.querySelector('span[data-field = "category"]').textContent = data["category"];
-                entry.querySelector('td[data-field = "date"]').textContent = data["date"];
-                entry.querySelector('td[data-field = "amount"]').textContent = data["amount"];
+                entry.querySelector('td[data-field = "date"]').textContent = data["date"].split("T")[0];
+                entry.querySelector('td[data-field = "amount"] span').textContent = data["amount"];
                 entry.querySelector('.delete-action').dataset.id = data["_id"];
                 table.append(entry);
-                
             }
         }
     }
@@ -60,30 +73,8 @@ async function load_dashboard(){
         console.error(err.message);
     }
 
-    chart_generator.generate_chart(response_json);
+
 }
-
-// async function get_summary(){
-// try{
-//     //modify the api route later
-//     const response = await fetch("/api/analytics/summary",{
-//         method : "GET",
-//         headers : {
-//             "Authorization" : `Bearer ${token}`
-//         }
-//     })
-//     //modify accordingly
-//     if(!response.ok)
-//         console.error(`An error occured : status code - ${response.status}`);
-
-//     const response_json = await response.json();
-//     console.log(`Total Spent = ${response_json.totalSpent}\nRemaining Allowance = ${response_json.remainingAllowance}`);
-
-// }
-// catch(err){
-//     console.error(err.message);
-// }
-// }
 
 const form = document.querySelector("#add-expense-form");
 form.addEventListener("submit",async function(e){
@@ -127,7 +118,7 @@ document.addEventListener("click",async (e) => {
             if(!response.ok)
                 console.error(`An error occured : status code - ${response.status}`);
             else
-                load_document();
+                load_dashboard();
         }
 
         catch(err){
