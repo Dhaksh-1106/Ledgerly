@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-// require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 
 const connectDB = async () => {
   try {
-    // if (!process.env.MONGO_URI) {
-    //   throw new Error('MONGO_URI is not defined');
-    // }
+    if(!process.env.MONGO_URI)
+      throw new Error("MONGO_URI not defined");
 
-    const connection = await mongoose.connect("mongodb://localhost:27017");
+    const connection = await mongoose.connect(process.env.MONGO_URI,{
+      dbName:"Ledgerly"
+    });
     console.log(`MongoDB connected: ${connection.connection.host}`);
   } catch (error) {
     console.error(`MongoDB connection failed: ${error.message}`);

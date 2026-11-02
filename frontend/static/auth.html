@@ -6,12 +6,13 @@
     <meta name="description" content="Sign in or create your Ledgerly account.">
     <title>Account access | Ledgerly</title>
     <link rel="stylesheet" href="/css/auth.css">
+    <link rel="icon" href="/favicon.ico?v=1" type="image/x-icon">
   </head>
   <body class="auth-page">
     <main class="auth-shell">
       <section class="auth-intro" aria-labelledby="auth-title">
         <a class="brand" href="/index.html">
-          <span class="brand-mark" aria-hidden="true">$</span> Ledgerly
+          <span class="brand-mark" aria-hidden="true">₹</span> Ledgerly
         </a>
         <h1 id="auth-title">Your financial future starts here.</h1>
         <p>Join a calmer, clearer way to understand your money and make progress toward your goals.</p>
@@ -24,47 +25,49 @@
 
       <section class="auth-panel" aria-label="Account forms">
         <div id="auth-error-message" class="feedback" aria-live="polite"></div>
-        <div class="auth-grid">
-          <form id="login-form" novalidate>
+        <div id="login-form-container">
+          <form id="login-form" autocomplete="on">
             <h2>Welcome back</h2>
             <p class="auth-subtitle">Sign in to your dashboard.</p>
             <div class="form-group">
               <label for="login-email">Email address</label>
-              <input class="form-control" id="login-email" name="email" type="email" autocomplete="email" required>
+              <input class="form-control" id="login-email" name="email" autocomplete="email" type="email" required>
             </div>
             <div class="form-group">
               <label for="login-password">Password</label>
               <input class="form-control" id="login-password" name="password" type="password" autocomplete="current-password" minlength="8" required>
             </div>
-            <div id="login-feedback" class="feedback" aria-live="polite"></div>
+            <div id="login-feedback" class="feedback" role="alert" style="display:none"></div>
             <button class="button" type="submit">Sign in</button>
           </form>
+          <p class="auth-footer"><a href="/">← Back to home</a><a href="/auth.html?mode=register">Not Signed up? Register here</a></p>
+        </div>
 
-          <form id="register-form" novalidate>
+        <div id="register-form-container">
+          <form id="register-form" autocomplete="on">
             <h2>Create your account</h2>
             <p class="auth-subtitle">Start your free financial workspace.</p>
             <div class="form-group">
               <label for="reg-username">Username</label>
-              <input class="form-control" id="reg-username" name="username" type="text" autocomplete="username" required>
+              <input class="form-control" id="reg-username" name="username" type="text" autocomplete="username" placeholder="e.g. David" required>
             </div>
             <div class="form-group">
               <label for="reg-email">Email address</label>
-              <input class="form-control" id="reg-email" name="email" type="email" autocomplete="email" required>
+              <input class="form-control" id="reg-email" name="email" type="email" autocomplete="email" placeholder="e.g. email@example.com" required>          
             </div>
             <div class="form-group">
               <label for="reg-password">Password</label>
-              <input class="form-control" id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
-              <p class="form-hint">Use at least 8 characters.</p>
+              <input class="form-control" id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="Use at least 8 characters" required>
             </div>
             <div class="form-group">
               <label for="reg-budget">Monthly budget</label>
-              <input class="form-control" id="reg-budget" name="budget" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
+              <input class="form-control" id="reg-budget" name="budget" type="number" min="0" step="100" inputmode="decimal" placeholder="0.00" required>
             </div>
-            <div id="register-feedback" class="feedback" aria-live="polite"></div>
+            <div id="register-feedback" class="feedback" aria-live="assertive" style="display:none"></div>
             <button class="button" type="submit">Create account</button>
           </form>
+          <p class="auth-footer"><a href="/">← Back to home</a><a href="/auth.html?mode=login">Already have an account? Log in</a></p>
         </div>
-        <p class="auth-footer"><a href="/">← Back to home</a></p>
       </section>
     </main>
     <script src="/js/auth.js"></script>

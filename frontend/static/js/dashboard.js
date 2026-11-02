@@ -1,4 +1,4 @@
-import {generate_chart} from "./chart_engine.js"
+import {generate_chart} from "/js/chart_engine.js"
 
 const token = sessionStorage.getItem("Token");
 if(token == null)
@@ -32,9 +32,20 @@ async function load_dashboard(){
             console.error(`An error occured : status code - ${response.status}`);
         else{
             const response_json = await response.json();
+            let color;
+
+            if(response_json["remainingAllowance"] > 0)
+                color = "#5bd6a0";
+            else if(response_json["remainingAllowance"] == 0)
+                color = "#ffff00de"
+            else
+                color = "#ea080c";
+
+            document.documentElement.style.setProperty("--status",color);
             spent.innerText = response_json["totalSpent"];
             budget.innerText = response_json["monthlyBudget"];
             balance.innerText = response_json["remainingAllowance"];
+
 
             generate_chart(response_json);
         }
@@ -42,8 +53,6 @@ async function load_dashboard(){
     catch(err){
         console.error(err.message);
     }
-
-
 
 
     try{
@@ -81,9 +90,7 @@ form.addEventListener("submit",async function(e){
     e.preventDefault();
     const formdata = new FormData(form);
     const data = Object.fromEntries(formdata.entries());
-    console.log(data);
     try{
-    //replace with actual api path later
     const response = await fetch("/api/expenses",{
         method : "POST",
         headers : {
@@ -92,11 +99,10 @@ form.addEventListener("submit",async function(e){
         },
         body : JSON.stringify(data)
     });
-    //modify accordingly
+
     if(!response.ok)
         console.error(`An error occured : status code - ${response.status}`);
     else
-        // update to dynamic reload later
         form.reset();
         load_dashboard();
 }

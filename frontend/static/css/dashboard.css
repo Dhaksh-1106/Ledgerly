@@ -1,89 +1,7 @@
 @import url("variables.css");
 
 .app-header {
-  position: sticky;        
-  top: 0;                  
-  z-index: 1000;           
-  background: var(--surface); 
-  padding: 1.25rem 0;       
-  border-bottom: none;     
-}
-
-.app-header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 4.25rem;
-  gap: var(--spacing-4);
-  padding: 0.6rem 2.25rem;
-
-  width: 95%; 
-  max-width: 1200px; 
-  margin: 0 auto;          
-  
-  background-color: rgba(255, 255, 255, 0.94); 
-  backdrop-filter: blur(20px);                 
-  -webkit-backdrop-filter: blur(20px);         
-  
-  border-radius: 100px;                        
-  border: 1px solid rgba(0, 0, 0, 0.12);       
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04); 
-
-  animation: fadeHeaderOnScroll linear both;
-  animation-timeline: scroll(root);
-  animation-range: 0px 100px;                  
-}
-
-@keyframes fadeHeaderOnScroll {
-  from {
-    background-color: rgba(255, 255, 255, 0.94);
-    border-color: rgba(0, 0, 0, 0.12);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
-    opacity: 1;
-  }
-  to {
-    background-color: rgba(255, 255, 255, 0.75);
-    border-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    opacity: 0.8; 
-  }
-}
-
-.app-header-inner:hover {
-  opacity: 1 !important;
-  background-color: rgba(255, 255, 255, 0.98) !important;
-  border-color: rgba(0, 0, 0, 0.15) !important;
-  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.16) !important;
-  transition: all 0.25s ease;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  font-weight: 700;
-  color: #0f172a; 
-}
-
-.app-nav {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-5);
-  flex-wrap: nowrap;           
-}
-
-.app-nav a {
-  color: var(--text-muted);
-  font-size: .875rem;
-  font-weight: 650;
-  text-decoration: none;
-  white-space: nowrap;         
-}
-
-.app-nav a:hover,
-.app-nav a.active {
-  color: var(--primary);
+  scroll-margin-top: 1rem;
 }
 
 .dashboard-main {
@@ -147,7 +65,7 @@
 
 .metric-note {
   margin: var(--spacing-2) 0 0;
-  color: var(--success);
+  color: var(--status,#5bd6a0);
   font-size: .8125rem;
   font-weight: 650;
 }
@@ -171,7 +89,7 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-3);
-  margin-bottom: var(--spacing-5);
+  margin-bottom: var(--spacing-6);
 }
 
 .panel-heading h2 {
@@ -179,23 +97,22 @@
   font-size: 1.125rem;
 }
 
-/* --- Expense Form Styling --- */
 .expense-form {
   display: grid;
   gap: var(--spacing-3);
 }
 
 .expense-form .form-group {
-  margin: 0;
+  margin: 0.25rem;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1.5);
+  gap: var(--spacing-2);
 }
 
 .expense-form label {
   font-size: .875rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text);
 }
 
 .expense-form label span {
@@ -208,7 +125,7 @@
   padding: .625rem .75rem;
   font-size: 1rem;
   font-family: inherit;
-  color: var(--text-main);
+  color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -221,19 +138,26 @@
   box-shadow: 0 0 0 3px var(--primary-soft);
 }
 
-.expense-form .feedback {
-  font-size: .8125rem;
-  color: var(--danger);
-  min-height: 1.25rem;
+.feedback {
+  display: none;
+  margin-bottom: var(--spacing-3);
+  border-radius: var(--radius-sm);
+  color: #ef4444;
 }
+
+.feedback:empty { display: none; }
+.feedback[role="alert"], .feedback[role="status"] { display: block; }
+.feedback.error { color: var(--danger); background: var(--danger-soft); }
+.feedback.success { color: var(--success); background: var(--success-soft); }
 
 .expense-form .button {
   cursor: pointer;
   padding: .75rem 1rem;
+  margin: 0.75rem 0rem;
   font-size: 1rem;
   font-weight: 650;
   color: white;
-  background: var(--primary);
+  background: var(--primary-strong);
   border: 0;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
@@ -241,16 +165,11 @@
 }
 
 .expense-form .button:hover {
-  background: var(--primary-dark);
+  background: var(--primary-hover);
 }
 
 .expense-form .button:active {
   transform: scale(.98);
-}
-/* ----------------------------- */
-
-.form-control:invalid:not(:placeholder-shown) {
-  border-color: var(--danger);
 }
 
 .textarea {
@@ -373,4 +292,53 @@
     grid-template-columns: minmax(20rem, .9fr) minmax(24rem, 1.1fr);
     align-items: start;
   }
+}
+
+.dashboard-main { padding-top: clamp(1.25rem, 3vw, 2rem); }
+
+.page-heading { margin-bottom: var(--spacing-12); }
+
+.page-heading h1 {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  letter-spacing: -.05em;
+}
+
+.page-heading .button {
+  width: auto;
+  padding: .8rem 1.1rem;
+}
+
+.metric-card,
+.panel {
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.metric-card:hover,
+.panel:hover {
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border));
+  box-shadow: var(--shadow-md);
+}
+
+.metric-value { font-weight: 750; }
+
+.expense-form .form-control {
+  min-height: 2.85rem;
+  border-color: var(--border);
+  background: var(--surface-muted);
+}
+
+.expense-form .form-control::placeholder { color: var(--text-muted); opacity: .8; }
+.expense-form .textarea { min-height: 6rem; }
+
+.expense-table th { padding-top: .85rem; padding-bottom: .85rem; }
+.expense-table td { padding-top: .9rem; padding-bottom: .9rem; }
+
+.app-footer { margin-top: var(--spacing-8); }
+
+@media (max-width: 480px) {
+  .dashboard-main { padding-top: var(--spacing-6); }
+  .page-heading { align-items: stretch; }
+  .page-heading .button { align-self: flex-start; }
+  .panel { padding: var(--spacing-4); }
+  .panel-heading h2 { font-size: 1rem; }
 }
